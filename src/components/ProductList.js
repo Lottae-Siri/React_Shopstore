@@ -11,7 +11,7 @@ class ProductList extends React.Component {
 
   componentDidMount() {
     // this.fetchData()
-    this.getProduct('fetchData')
+    this.getProduct('')
   }
 
   componentDidUpdate(prevProps, prevState) {
