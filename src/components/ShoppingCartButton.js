@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import { DropButton, Box, Stack } from 'grommet';
-import { FaShoppingBag } from 'react-icons/fa'
-export default class ShoppingCartButton extends Component {
+import { Shop } from 'grommet-icons'
+import { connect } from 'react-redux';
+import CartItemList from './CartItemList';
+
+class ShoppingCartButton extends Component {
   render() {
+    const { cartLength } = this.props;
     return (
       <DropButton
         dropAlign={{
@@ -10,24 +14,34 @@ export default class ShoppingCartButton extends Component {
           right: 'right'
         }}
         dropContent={
-          <Box>Cart product list</Box>
+          <Box>
+            <CartItemList/>
+          </Box>
         }
       >
         <Stack
           anchor="top-right"
         >
           <Box pad='xsmall'>
-            <FaShoppingBag size={32}/>
+            <Shop size="32px" />
           </Box>
           <Box
             background="accent-4"
-            pad={{horizontal: 'xsmall'}}
+            pad={{ horizontal: 'xsmall' }}
             round
           >
-            {0}
+            {cartLength}
           </Box>
         </Stack>
       </DropButton>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    cartLength: state.cart.cartItems.length
+  }
+}
+
+export default connect(mapStateToProps)(ShoppingCartButton)
